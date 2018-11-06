@@ -5,7 +5,7 @@ E' richiesto:
 1 sensore DHT11 (sensore tempeatura e umidità azzurro o un DHT22 bianco)
 1 display 7 segmenti 8 digit controllato con MAX7219
 2 pulsanti
-2 resitenze da 10Kohm
+(2 resitenze da 10Kohm) (queste resistenze sono il Pull-Up dei pulsanti e non sono indispensabili in quanto è attivo il Pull-Up interno del microcontrollore)
 1 resistenza da 4,7Kohm
 materiale per i collegamenti (breadborad e jumper).
 
