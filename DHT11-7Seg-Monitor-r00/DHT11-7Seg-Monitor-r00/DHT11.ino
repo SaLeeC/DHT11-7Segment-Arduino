@@ -57,94 +57,90 @@ void DHT11loop()
 
       DHT11AggioraMisure();
 
-      //Se è stato aggiiorato almeo un valore cotrolla i miimi e i massimi
-      if (DHT11News != 0)
-      {
-        DHT11MiMax();
-      }
     }
   }
 }
 
 
-void DHT11MiMax()
+void DHT11Min()
 {
-  //Controlla se abbiamo un nuovo minimo o massimo
-  //per la Temperatura
-
+//Controlla se abbiamo un nuovo minimo per la Temperatura
   if (DHT11Temperatura[0] < DHT11Temperatura[3])
   {
-    //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[0]++;
-
-    if (DHT11ContatoreIsteresi[0] == DHT11IsteresiMinMax)
+    if(DHT11ContatoreIsteresi[0] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo
       DHT11Temperatura[3] = DHT11Temperatura[0];
-      //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
       DHT11ContatoreIsteresi[0] = 0;
     }
   }
   else
   {
-    //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[0] = 0;
   }
 
-  if (DHT11Temperatura[0] > DHT11Temperatura[4])
-  {
-    //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
-    DHT11ContatoreIsteresi[1]++;
-
-    if (DHT11ContatoreIsteresi[1] == DHT11IsteresiMinMax)
-    {
-      //Aggiorna il minimo
-      DHT11Temperatura[4] = DHT11Temperatura[0];
-      //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
-      DHT11ContatoreIsteresi[1] = 0;
-    }
-  }
-  else
-  {
-    //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
-    DHT11ContatoreIsteresi[1] = 0;
-  }
-
-  //Controlla se abbiamo un nuovo minimo o massimo
-  //per la Temperatura
+//Controlla se abbiamo un nuovo minimo per l'umidità
   if (DHT11Umidita[0] < DHT11Umidita[3])
   {
-    //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[2]++;
-    if (DHT11ContatoreIsteresi[2] == DHT11IsteresiMinMax)
+    if(DHT11ContatoreIsteresi[2] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo
       DHT11Umidita[3] = DHT11Umidita[0];
-      //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
       DHT11ContatoreIsteresi[2] = 0;
     }
   }
   else
   {
-    //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[2] = 0;
   }
+}
 
+
+void DHT11Max()
+{
+//Serial.println("Aggiornamento massimi");
+//Controlla se abbiamo un nuovo massimo per la temperatura
+  if (DHT11Temperatura[0] > DHT11Temperatura[4])
+  {
+//    Serial.print("Massimi temperatura ");
+//    Serial.print(DHT11Temperatura[0]);
+//    Serial.print(" ");
+//    Serial.println(DHT11Temperatura[4]);
+    DHT11ContatoreIsteresi[1]++;
+    if(DHT11ContatoreIsteresi[1] == DHT11IsteresiMinMax)
+    {
+//      Serial.print("Massimo temperatura aggiornato");
+      //Aggiorna il massimo
+      DHT11Temperatura[4] = DHT11Temperatura[0];
+      DHT11ContatoreIsteresi[1] = 0;
+    }
+  }
+  else
+  {
+    DHT11ContatoreIsteresi[1] = 0;
+  }
+
+//Controlla se abbiamo un nuovo massimo per l'umidità
   if (DHT11Umidita[0] > DHT11Umidita[4])
   {
-    //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
+//    Serial.print("Massimi umidità ");
+//    Serial.print(DHT11Umidita[0]);
+//    Serial.print(" ");
+//    Serial.println(DHT11Umidita[4]);
     DHT11ContatoreIsteresi[3]++;
-    if (DHT11ContatoreIsteresi[3] == DHT11IsteresiMinMax)
+    if(DHT11ContatoreIsteresi[3] == DHT11IsteresiMinMax)
     {
-      //Aggiorna il minimo
+      //Aggiorna il massimo
+//      Serial.print("Aggiorna il massimo umidità");
       DHT11Umidita[4] = DHT11Umidita[0];
-      //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
+//      Serial.println(DHT11Umidita[4]);
       DHT11ContatoreIsteresi[3] = 0;
     }
   }
   else
   {
-    //Azzera il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[3] = 0;
   }
 }

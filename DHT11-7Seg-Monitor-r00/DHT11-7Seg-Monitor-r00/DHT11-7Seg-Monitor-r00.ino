@@ -63,7 +63,7 @@ byte DHT11USensibilita = 2;
 //Isteresi per le registrazione dei minimi e dei massimi ovvero,
 //numero dei campioni consecutivi che devono risultare diversi dall'ultimo registrato
 //per cambiare il minimo o il massimo corrente
-#define DHT11IsteresiMinMax 3
+#define DHT11IsteresiMinMax 1
 
 //La cella 0 conta l'isteresi del MINIMO TEMPERATURA
 //La cella 1 conta l'isteresi del MASSIMO TEMPERATURA
@@ -103,7 +103,7 @@ byte MAX7219Flash = 0;
 
 void setup() 
 {
-  
+//  Serial.begin(9600);
   pinMode(PulsanteMinimo, INPUT_PULLUP);
   pinMode(PulsanteMassimo, INPUT_PULLUP);
 
@@ -116,13 +116,15 @@ void loop()
   DHT11loop();
   if(DHT11News != 0)
   {
+    DHT11Max();
+    DHT11Min();
     MAX7219TempUmid();
   }
   
   //Controlla se è richiesta la visualizzazione dei minimi e dei massimi
   
   //Tutti e due premuti azzerano i valori di minimo e massimo
-  if ((digitalRead(PulsanteMinimo) == LOW) | (digitalRead(PulsanteMassimo) == LOW))
+  if ((digitalRead(PulsanteMinimo) == LOW) & (digitalRead(PulsanteMassimo) == LOW))
   {
     DHT11Temperatura[3] = 99;
     DHT11Umidita[3] = 99;
@@ -133,6 +135,9 @@ void loop()
     {
       delay(300);
     }
+    DHT11Max();
+    DHT11Min();
+    MAX7219TempUmid();
   }
 
   //Minimo premuto
