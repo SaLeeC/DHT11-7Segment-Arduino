@@ -57,7 +57,7 @@ void DHT11loop()
 
       DHT11AggioraMisure();
 
-      //Se è stato aggiiorato almeo u valore cotrolla i miimi e i massimi
+      //Se è stato aggiiorato almeo un valore cotrolla i miimi e i massimi
       if (DHT11News != 0)
       {
         DHT11MiMax();
@@ -71,10 +71,12 @@ void DHT11MiMax()
 {
   //Controlla se abbiamo un nuovo minimo o massimo
   //per la Temperatura
-  if (DHT11Temperatura[0] > DHT11Temperatura[3])
+
+  if (DHT11Temperatura[0] < DHT11Temperatura[3])
   {
     //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[0]++;
+
     if (DHT11ContatoreIsteresi[0] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo
@@ -89,10 +91,11 @@ void DHT11MiMax()
     DHT11ContatoreIsteresi[0] = 0;
   }
 
-  if (DHT11Temperatura[0] < DHT11Temperatura[4])
+  if (DHT11Temperatura[0] > DHT11Temperatura[4])
   {
     //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
     DHT11ContatoreIsteresi[1]++;
+
     if (DHT11ContatoreIsteresi[1] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo
@@ -109,10 +112,10 @@ void DHT11MiMax()
 
   //Controlla se abbiamo un nuovo minimo o massimo
   //per la Temperatura
-  if (DHT11Umidita[0] > DHT11Umidita[3])
+  if (DHT11Umidita[0] < DHT11Umidita[3])
   {
     //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
-    DHT11ContatoreIsteresi[0]++;
+    DHT11ContatoreIsteresi[2]++;
     if (DHT11ContatoreIsteresi[2] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo
@@ -127,10 +130,10 @@ void DHT11MiMax()
     DHT11ContatoreIsteresi[2] = 0;
   }
 
-  if (DHT11Umidita[0] < DHT11Umidita[4])
+  if (DHT11Umidita[0] > DHT11Umidita[4])
   {
     //Incrementa il contatore dei campioni consecutivi inferiori al minimo attuale
-    DHT11ContatoreIsteresi[1]++;
+    DHT11ContatoreIsteresi[3]++;
     if (DHT11ContatoreIsteresi[3] == DHT11IsteresiMinMax)
     {
       //Aggiorna il minimo

@@ -103,6 +103,7 @@ byte MAX7219Flash = 0;
 
 void setup() 
 {
+  
   pinMode(PulsanteMinimo, INPUT_PULLUP);
   pinMode(PulsanteMassimo, INPUT_PULLUP);
 
